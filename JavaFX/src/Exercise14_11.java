@@ -3,10 +3,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
-import javafx.scene.shape.Polygon;
+import javafx.geometry.Pos;
 
 
 public class Exercise14_11 extends Application {
@@ -30,7 +29,7 @@ public class Exercise14_11 extends Application {
         list.add(centerX + 50);
         list.add(centerY + (100 / ( 2 *  Math.sqrt(3))));
 
-        Circle face = new Circle(centerX, centerY, 200);
+        Circle face = new Circle(centerX, centerY, 200.0);
         face.setStroke(Color.BLACK);
         face.setFill(Color.WHITE);
 
@@ -41,15 +40,19 @@ public class Exercise14_11 extends Application {
         eye2.setStroke(Color.BLACK);
         eye2.setFill(Color.WHITE);
 
-        Circle iris1 = new Circle(centerX - 75, centerY - 75, 25);
-        Circle iris2 = new Circle(centerX + 75, centerY - 75, 25);
+        Circle iris1 = new Circle(centerX - 75, centerY - 75, 25.0);
+        Circle iris2 = new Circle(centerX + 75, centerY - 75, 25.0);
         iris1.setStroke(Color.BLACK);
         iris1.setFill(Color.BLACK);
         iris2.setStroke(Color.BLACK);
         iris2.setFill(Color.BLACK);
 
-        pane.getChildren().addAll(face, eye1, eye2, iris1, iris2, triangle);
+        Arc arc1 = new Arc(centerX, centerY + 60, 110, 50, 0, -180); // Create an arc
+        arc1.setStroke(Color.BLACK); // Set fill color
+        arc1.setType(ArcType.OPEN); // Set arc type
+        arc1.setFill(Color.WHITE);
 
+        pane.getChildren().addAll(face, eye1, eye2, iris1, iris2, arc1, triangle);
 
         primaryStage.setTitle("Smiley Face");
         primaryStage.setScene(scene);
