@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -28,6 +29,7 @@ public class Exercise14_01 extends Application{
 //        Add all images to gridpane
         pane.getChildren().addAll(image1,image2, image3, image4);
 
+        pane.setAlignment(Pos.CENTER);
 //        Create new scene and place it in the stage
         Scene scene = new Scene(pane, 400, 400);
         primaryStage.setTitle("Test"); // Set the stage title

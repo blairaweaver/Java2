@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.ColumnConstraints;
@@ -121,7 +122,7 @@ public class Exercise14_09 extends Application{
         gridpane.getColumnConstraints().add(new ColumnConstraints(200));
         gridpane.getRowConstraints().add(new RowConstraints(200));
 
-
+        gridpane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridpane, 500, 500);
         primaryStage.setTitle("Test"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage

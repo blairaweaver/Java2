@@ -37,6 +37,7 @@ public class Exercise14_03 extends Application{
 //        gridpane.setValignment(imageview2, VPos.CENTER);
 //        gridpane.setHalignment(imageview2, HPos.CENTER);
 
+        gridpane.setAlignment(Pos.CENTER);
         Scene scene = new Scene(gridpane, 400, 400);
         primaryStage.setTitle("Test"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
