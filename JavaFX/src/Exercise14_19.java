@@ -23,7 +23,11 @@ public class Exercise14_19 extends Application {
 
         Text xLabel = new Text(pane.getWidth() - 20, centerY - 20, "X");
         Text yLabel = new Text(centerX + 20, 20, "Y");
-        Text
+        Text origin = new Text(centerX, centerY + 10, "0");
+        Text posPi = new Text(centerX + 78, centerY + 10, "\u03c0");
+        Text posTwoPi = new Text(centerX + 156, centerY + 10, "2\u03c0");
+        Text negPi = new Text(centerX - 78, centerY + 10, "-\u03c0");
+        Text negTwoPi = new Text(centerX - 156, centerY + 10, "-2\u03c0");
 
         Polyline sine = new Polyline();
         Polyline cosine = new Polyline();
@@ -38,9 +42,12 @@ public class Exercise14_19 extends Application {
             sineList.add(centerY - (centerY / 2) * Math.sin(x / 25.0));
             cosineList.add(x + centerX);
             cosineList.add(centerY - (centerY / 2) * Math.cos(x / 25.0));
+//            System.out.print(x + centerX);
+//            System.out.print(" , ");
+//            System.out.println(centerY - (centerY / 2) * Math.sin(x / 25.0));
         }
 
-        pane.getChildren().addAll(sine, cosine, xLabel, yLabel);
+        pane.getChildren().addAll(sine, cosine, xLabel, yLabel, origin, posPi, posTwoPi, negPi, negTwoPi);
 
 //        System.out.print(centerX)
 
