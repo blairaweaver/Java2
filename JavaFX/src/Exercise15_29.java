@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -27,43 +28,33 @@ public class Exercise15_29 extends Application {
         CarPane carPane = new CarPane();
         Scene scene = new Scene(carPane, 500, 500);
 
-        carPane.setOnKeyPressed(event -> );
-        carPane.setOnKeyReleased(event -> );
-        carPane.setOnKeyTyped(event -> );
-
-
-        car.getChildren().addAll(body, t1, t2, top);
-        int count = 1;
-        car.setTranslateX(1);
-
-        pane.getChildren().add(car);
-
-        javafx.event.EventHandler<ActionEvent> action = e -> {
-//            car.translateXProperty();
-            System.out.println("hey");
-            body.setX(body.getX() + 1);
-        };
-
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(500), action));
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();
-
+        carPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                carPane.increaseSpeed();
+            }
+            else if (event.getCode() == KeyCode.DOWN) {
+                carPane.decreaseSpeed();
+            }
+        });
+        carPane.setOnMousePressed(event -> carPane.pause());
+        carPane.setOnMouseReleased(event -> carPane.play());
 
         primaryStage.setTitle("Color Change");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        pane.requestFocus();
+        carPane.requestFocus();
     }
 }
 
 class CarPane extends Pane {
     private double segHeight = 30 / 3;
     private double segWidth = 50 / 5;
+    private double x = 0, y = 480;
 
     private javafx.event.EventHandler<ActionEvent> eventHandler = e -> {
-
-    }
+        moveCar();
+    };
 
     private Timeline animation = new Timeline(new KeyFrame(Duration.millis(500), eventHandler));
 
@@ -81,39 +72,36 @@ class CarPane extends Pane {
         animation.play();
     }
 
-    public void changeStatus() {
-        if (animation.getStatus() == PAUSED) {
-            play();
-        }
-        else pause();
+    public void increaseSpeed() {
+        animation.setRate(animation.getRate() + 0.1);
+    }
+
+    public void decreaseSpeed() {
+        animation.setRate(animation.getRate() > 0 ? animation.getRate() - 0.1 : 0);
     }
 
     private void paintCar() {
-        Rectangle body = new Rectangle(0, 480, 50, segHeight);
-        body.yProperty().bind(pane.heightProperty().subtract(2 * segHeight));
-    }
-
-
-
+        Rectangle body = new Rectangle(x, y, 50, segHeight);
+        body.yProperty().bind(heightProperty().subtract(2 * segHeight));
         body.setFill(Color.GREEN);
         body.setStroke(Color.GREEN);
 
-    Circle t2 = new Circle(segHeight / 2);
+        Circle t2 = new Circle(segHeight / 2);
         t2.centerXProperty().bind(body.xProperty().add(segWidth * 3.5));
         t2.centerYProperty().bind(body.yProperty().add(segWidth * 1.5));
         t2.setFill(Color.BLACK);
         t2.setStroke(Color.BLACK);
 
-    Circle t1 = new Circle(segHeight / 2);
+        Circle t1 = new Circle(segHeight / 2);
         t1.centerXProperty().bind(body.xProperty().add(segWidth * 1.5));
         t1.centerYProperty().bind(body.yProperty().add(segWidth * 1.5));
         t1.setFill(Color.BLACK);
         t1.setStroke(Color.BLACK);
 
-    Polygon top = new Polygon();
+        Polygon top = new Polygon();
         top.setStroke(Color.RED);
         top.setFill(Color.RED);
-    ObservableList<Double> list = top.getPoints();
+        ObservableList<Double> list = top.getPoints();
         list.add(body.getX() + segWidth);
         list.add(body.getY());
         list.add(body.getX() + segWidth * 2);
@@ -122,4 +110,19 @@ class CarPane extends Pane {
         list.add(body.getY() - segHeight);
         list.add(body.getX() + segWidth * 4);
         list.add(body.getY());
+
+        getChildren().clear();
+        getChildren().addAll(body,top,t1,t2);
+    }
+
+    protected void moveCar() {
+        if (x > getWidth() - 50) {
+            x = 0;
+        }
+        else {
+            x += 10;
+        }
+
+        paintCar();
+    }
 }
