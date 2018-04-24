@@ -46,7 +46,30 @@ public class Exercise16_05 extends Application {
         pane.setCenter(test);
         pane.setLeft(text);
 
-//        decimal.setOnAction(e -> text.setText(decimal.getText()));
+        decimal.setOnAction(event -> {
+            Integer dec = Integer.parseInt(decimal.getText());
+            String hex = dec.toHexString(dec);
+            String bin = dec.toBinaryString(dec);
+
+            hexadecimal.setText(hex);
+            binary.setText(bin);
+        });
+
+        hexadecimal.setOnAction(event -> {
+            Integer dec = Integer.parseInt(hexadecimal.getText(), 16);
+            String bin = dec.toBinaryString(dec);
+
+            binary.setText(bin);
+            decimal.setText(dec.toString());
+        });
+
+        binary.setOnAction(event -> {
+            Integer dec = Integer.parseInt(binary.getText(), 2);
+            String hex = dec.toHexString(dec);
+
+            hexadecimal.setText(hex);
+            decimal.setText(dec.toString());
+        });
 
         return pane;
     }
