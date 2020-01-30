@@ -1,3 +1,3 @@
-# Java2
+# Java 2
 
-File for CSCI 1302
+Files for CSCI 1302
